@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+	<header class="head-box">
+		<div class="head">
+			<div class="logo">DoToList</div>
+			<input type="text" placeholder="添加DoTo" id="search">
+		</div>
+	</header>
+	<section class="now">
+		<header>
+			<h4 class="title">正在进行</h4>
+			<span class="num">0</span>
+		</header>
+		<ul class="list">
+
+		</ul>
+	</section>
+	<section class="complete">
+		<header>
+			<h4 class="title">已经完成</h4>
+			<span class="num">0</span>
+		</header>
+		<ul class="list">
+		</ul>
+	</section>
+<script>
+	// var doto=[
+	// 		{'title':'今天中午1点30开始演讲','done':false},
+	// 		{'title':'今天中午1点30开始演讲','done':true},
+	// 		{'title':'今天中午1点30开始演讲','done':false},
+	// 		{'title':'今天中午1点30开始演讲','done':false},
+	// 	];
+	var doto=getItem();
+	function getItem(){
+		var doto=localStorage.getItem("toda")||'[]'
+		return JSON.parse(doto);
+	}
+	function setItem(data){
+		localStorage.setItem("toda",JSON.stringify(data));
+	}
+	var nowlist=document.querySelector(".now .list");
+	var comlist=document.querySelector(".complete .list");
+	var nownum=document.querySelector(".now .num");
+	var comnum=document.querySelector(".complete .num")
+	// 增加 add
+	var addbtn=document.querySelector('#search');
+	addbtn.onkeydown=function(e){
+		if(e.keyCode==13){
+			if(addbtn.value){
+				add(this.value)
+				addbtn.value="";
+			}else{
+				alert("输入不能为空!");
+			}
+			
+		} 
+	}
+	function add(data){
+		doto.unshift({
+			'title':data,
+			'done':false
+		})
+		setItem(doto);
+		reload();
+	}
+	// 修改
+	function change(i,key,val){
+		doto[i][key]=val;
+		reload();
+		setItem(doto);
+	}
+	// 删除
+	function del(i){
+		doto.splice(i,1);
+		reload();
+		setItem(doto);
+	}
+	// 查询
+	function reload(){
+		var nowtitle="";
+		var comtitle="";
+		var nown=0;
+		var comn=0;
+		for (var i = 0; i < doto.length; i++) {
+			if(doto[i]['done']==true){
+				comn++
+				comtitle+="<li><input type='checkbox' checked='true' onclick=change("+i+",'done',false)><p>"+doto[i]['title']+"</p><div class='btn' onclick='del("+i+")'>-</div></li>";
+			}else if(doto[i]['done']==false){
+				nown++
+				nowtitle+="<li><input type='checkbox' onclick=change("+i+",'done',true)><p contenteditable='true' onblur='change("+i+",'title',this.innerHTML)'>"+doto[i]['title']+"</p><div class='btn' onclick=del("+i+")>-</div></li>";
+			}
+		}
+		nownum.innerHTML=nown;
+		comnum.innerHTML=comn;
+		nowlist.innerHTML=nowtitle;
+		comlist.innerHTML=comtitle;
+	}
+	reload();
+</script>
+</body>
+</html>

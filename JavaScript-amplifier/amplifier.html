@@ -1,0 +1,117 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src="../function-$.js"></script>
+	<script src="../animate.js"></script>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+
+		.sBox{
+			width: 270px;
+			height: 300px;
+			margin-left: 50px;
+			float: left;
+			position: relative;
+		}
+		.sImg{
+			width: 270px;
+			height: 300px;	
+		}
+		.mask{
+			width: 90px;
+			height: 100px;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background: red;
+			opacity: 0.6;
+		}
+		.opacity{
+			width: 270px;
+			height: 300px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		.bBox{
+			width: 270px;
+			height: 300px;
+			position: relative;
+			float: left;
+			position: relative;
+			overflow: hidden;
+			margin-left: 30px;
+		}
+		.bImg{
+			width: 810px;
+			height: 900px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+	</style>
+</head>
+<body>
+		<div class="sBox">
+			<img src="yt12.jpg" alt="" class="sImg">
+			<div class="mask"></div>
+			<div class="opacity"></div>
+		</div>
+		<div class="bBox">
+			<img src="yt13.jpg" alt="" class="bImg">
+		</div>
+</body>
+</html>
+<script>
+	$(function(){
+		var sBox=$(".sBox")[0];
+		var sImg=$(".sImg",sBox)[0];
+		var bBox=$(".bBox")[0];
+		var bImg=$(".bImg",bBox)[0];
+		var mask=$(".mask")[0];
+		var opacity=$(".opacity")[0];
+			console.log(mask)		
+		var mw=mask.offsetWidth/2;
+		var mh=mask.offsetHeight/2;
+		var sw=sImg.offsetWidth;
+		// var bw=bImg.offsetWidth;
+		var sh=sImg.offsetHeight;
+		// var bh=bImg.offsetHeight;
+		opacity.onmousemove=function(e){
+			var e=e||window.event;
+			var ox=e.offsetX;
+			var oy=e.offsetY;
+
+			var bianjieX=sw-mw;
+			var bianjieY=sh-mh;
+			if(ox<=mw){
+				ox=mw;
+			}if(ox>=bianjieX){
+				ox=bianjieX
+			}
+			if(oy<=mh){
+				oy=mh;
+			}if(oy>=bianjieY){
+				oy=bianjieY
+			}
+			mask.style.left=ox-mw+"px";
+			mask.style.top=oy-mh+"px";
+
+			bImg.style.width=sw*sw/2/mw+"px";
+			bImg.style.height=sh*sh/2/mh+"px";
+			var yidongX=ox-mw;
+			var yidongY=oy-mh;
+			bImg.style.left=-yidongX*sw/2/mw+"px";
+			bImg.style.top=-yidongY*sh/2/mh+"px";
+
+		}
+
+	})
+</script>

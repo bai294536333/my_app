@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+		.sence{
+			width: 600px;
+			height: 600px;
+			margin: 0 auto;
+			margin-top: 20px;
+			background: #000;
+			border-right: 1px solid #000;
+			border-bottom: 1px solid #000;
+		}
+		.block{
+			width: 29px;
+			height: 29px;
+			border-left:1px solid #000;
+			border-top:1px solid #000;
+			background: #fff;
+			/*margin: 0 1px 1px 0;*/
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div class="sence"></div>
+
+</body>
+</html>
+<script src="js/function-$.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/snake.js"></script>
+<script>
+	$(function(){
+
+		var aa=new snake();
+		aa.play();
+
+	})
+</script>

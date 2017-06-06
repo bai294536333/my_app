@@ -1,0 +1,126 @@
+/*-------------------------------------*/
+/*基础*/
+	body,ul,li,p,h4{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	a{
+		text-decoration: none;
+	}
+	body{
+		background: #CDCDCD;
+		/*font-family:"微软雅黑";*/
+	}
+/*-------------------------------------*/
+/*页头*/
+	.head-box{
+		height: 50px;
+ 		background: #333;
+ 	}
+ 	.head-box .head{
+ 		width: 600px;
+ 		height: 100%;
+ 		margin: 0 auto;
+ 	}
+ 	.head-box .head .logo{
+ 		float: left;
+ 		line-height: 50px;
+ 		font-size: 24px;
+ 		color: #fff;
+ 		font-family: "微软雅黑";
+ 	}
+ 	.head-box .head input{
+ 		float: right;
+ 		height: 30px;
+ 		border:none;
+ 		outline: none;
+ 		box-sizing:border-box;
+ 		width: 400px;
+		margin:10px 0 0 0; 
+		border: 1px solid #333;
+		border-radius: 8px;
+		padding-left: 10px;
+ 	}
+/*-------------------------------------*/
+/*正在进行*/
+	section.now,section.complete{
+		width: 600px;
+		height: auto;
+		margin: 0 auto;
+		/*border: 1px solid blue;*/
+	}
+	section header{
+		width: 100%;
+		height: 28px;
+		padding: 20px 0 20px 0;
+		font-size: 22px;
+		font-weight: bold;
+	}
+	section header .title{
+		width: 300px;
+		height: 100%;
+		float: left;
+	}
+	section header .num{
+		float: right;
+		width: 20px;
+		height: 20px;
+		margin: 0 10px;
+		background: #E6E6FA;
+		font-size: 16px;
+		color: #222;
+		line-height:20px;
+		border-radius: 50%;
+		text-align: center;
+	}
+	.list{
+		width: 100%;
+		margin: 0 0 10px 0;
+		box-sizing:border-box;
+		background: #CDCDCD;
+	}
+	.list li{
+		box-sizing:border-box;
+		background: #fff;
+		height: 30px;
+		border-left:4px solid #629A9C;
+		border-radius: 2px; 
+		margin-bottom: 10px;
+	}
+	.list li input{
+		width: 22px;
+		height: 22px;
+		border: 1px solid #B2B2B2;
+		border-radius: 3px;
+		display: block;
+		margin-top: 3px;
+		line-height: 30px;
+		float: left;
+	}
+	.list li p{
+		width: 520px;
+		height: 30px;
+		float: left;
+		font-size: 18px;
+		line-height: 30px;
+		color: #000;
+	}
+	.list li .btn{
+		width: 16px;
+		height: 16px;
+		float: right;
+		font-size: 18px;
+		line-height: 15px;
+		padding: 3px;
+		color: #fff;
+		background: #ccc;
+		border: 2px solid #ccc;
+		border-radius: 50%;
+		background-origin:content-box;
+		background-clip: content-box;
+		text-align: center;
+		margin: 3px 5px 3px 5px;
+		cursor: pointer;
+	}
+/*-------------------------------------*/

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	*{
+		padding: 0;
+		margin: 0;
+	}
+	.box{
+        width: 200px;
+        height: 200px;
+        background: red;
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        top: 0;
+	}
+	.son{
+		width: 100px;
+        height: 100px;
+        background: green;
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        top: 100px;
+	}
+</style>
+<body>
+	<div class="box"></div>
+	<div class="son"></div>
+</body>
+</html>
+<script>
+	window.onload=function(){
+       var box=document.querySelector('.box');
+       
+       // var speedx=10;
+       function tanqiu(obj,speedx,speedy){
+           this.obj=obj;
+           this.speedx=speedx;
+           this.speedy=speedy;
+           // this.speedY=10;
+       }
+       tanqiu.prototype={
+           play:function(){
+           	   var self=this
+               var t=setInterval(move, 60);
+               function move(){
+               	 var lefts=self.obj.offsetLeft;
+               	 var tops=self.obj.offsetTop;
+                 var maxw=window.innerWidth-self.obj.offsetWidth;
+                 var maxh=window.innerHeight-self.obj.offsetHeight;
+                 if(lefts>=maxw){
+                    lefts=maxw;
+                    self.speedx=-self.speedx;
+                 }
+                 if(lefts<=0){
+                    lefts=0;
+                    self.speedx=-self.speedx;
+                 }
+                 if(tops>=maxh){
+                    tops=maxh;
+                    self.speedy=-self.speedy;
+                 }
+                 if(tops<=0){
+                    tops=0;
+                    self.speedy=-self.speedy;
+                 }
+               	self.obj.style.left=lefts+self.speedx+'px';
+               	self.obj.style.top=tops+self.speedy+'px';
+               } 
+           }
+       }
+
+       var aa=new tanqiu(box,10,10);
+       // aa.obj;
+       aa.play();
+       var son=new tanqiu(document.querySelector('.son'),20,20);
+       son.play();
+
+	}
+</script>

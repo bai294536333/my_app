@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.shengming{
+			margin-top: 10px;
+			width: 100px;
+			height: 100px;
+			/*background: #ccc;*/
+			font-size: 25px;
+			font-family: "微软雅黑";
+			line-height: 110px;
+			text-align: center;
+			color: #000;
+			font-weight: bold;
+			display: none;
+			z-index: 2;
+			position: relative;
+		}
+		.defen{
+			margin-top: 10px;
+			width: 100px;
+			height: 100px;
+			/*background: #ccc;*/
+			font-size: 25px;
+			font-family: "微软雅黑";
+			line-height:65px;
+			text-align: center;
+			color: #000;
+			font-weight: bold;
+			display: none;
+			z-index: 2;
+			position: relative;
+		}
+		.shengming{
+			background: url(img/dz123.png);
+		}
+		.defen{
+			background: url(img/dz1234.png);
+		}
+		.startBtn{
+			width: 200px;
+			height: 100px;
+			/*background: url(img/12345.jpg);*/
+			position: fixed;
+			top: 450px;
+			left: 50%;
+			margin-left: -100px;
+			cursor: pointer;
+			opacity: 0.4;
+			/*border: 2px solid #AF251B;*/
+			border-radius: 100px;
+			z-index: 2;
+		}
+		.startBtnAA{
+			width: 200px;
+			height: 100px;
+			font-family: "微软雅黑";
+			line-height: 100px;
+			color:red;
+			position: fixed;
+			top: 450px;
+			left: 50%;
+			margin-left: -100px;
+			text-align: center;
+			cursor: pointer;
+			font-weight: bold;
+			font-size: 30px;
+			z-index: 2;
+		}
+		.gameFloor{
+			width: 200px;
+			height: 50px;
+			font-family: "微软雅黑";
+			background: url(img/123456.png);
+			line-height: 52px;
+			color: pink;
+			position: fixed;
+			top: 10px;
+			left: 50%;
+			margin-left: -100px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 15px;
+			letter-spacing: 15px;
+			display: none;
+			z-index: 2;
+		}
+		.beijing{
+			width: 1349px;
+			height: 628px;
+			background:url("img/beijingtu.jpg");
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			left: 0px;
+			z-index: 1;
+			display: none;
+		}
+		.biaoti{
+			width: 500px;
+			height: 300px;
+			position: fixed;
+			top:100px;
+			left: 50%;
+			margin-left: -250px;
+			background: url(img/321.png);
+			font-family: "微软雅黑";
+			font-size: 40px;
+			line-height: 500px;
+			text-align: center;
+			letter-spacing: 10px;
+			color: #AF251B;
+			border: 2px solid #AF251B;
+			border-radius: 100px;
+			z-index: 2;
+		}
+	</style>
+</head>
+<body>
+	<!-- <img src="beijingtu.jpg" alt=""> -->
+	<div class="shengming">
+		<span class="hp">10</span>
+	</div>
+	<div class="defen">
+		<span class="restore">0</span>
+	</div>
+	<div class="gameFloor">
+		第<span class="GG">1</span>关
+	</div>
+	<div class="startBtn"></div>
+	<div class="startBtnAA">开 始 游 戏</div>
+	<div class="biaoti">来自星星的手速</div>
+	<div class="beijing"></div>
+</body>
+</html>
+<script src="js/function-$.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/js1128lianxi.js"></script>
+<script>
+	$(function(){
+       var aa=new game();
+       var startBtn=$(".startBtn")[0];
+       var startBtnAA=$(".startBtnAA")[0];
+       var biaoti=$(".biaoti")[0];
+       var defen=$(".defen")[0];
+       var shengming=$(".shengming")[0];
+       var gameFloor=$(".gameFloor")[0];
+       var beijing=$(".beijing")[0];
+       var ttt=setInterval(function(){
+       	startBtn.style.background="rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")";
+       },200)
+       startBtnAA.onclick=function(){
+       		clearInterval(ttt)
+       		startBtn.style.display="none";
+       		startBtnAA.style.display="none";
+       		biaoti.style.display="none";
+       		defen.style.display="block";
+       		shengming.style.display="block";
+       		gameFloor.style.display="block";
+       		beijing.style.display="block";
+       		aa.play();
+       }
+	})
+</script>
