@@ -1,73 +1,89 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<style type="text/css">
-		body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
-	</style>
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=	1VXQZ3Gw7jmpxSh2e2Q8znmOGKWUotCY"></script>
-	<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=1VXQZ3Gw7jmpxSh2e2Q8znmOGKWUotCY&services=&t=20170601195325"></script>
-	<title>鼠标滚轮缩放地图</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+    body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+    #allmap {width: 100%; height:500px; overflow: hidden;}
+    #result {width:100%;font-size:12px;}
+    dl,dt,dd,ul,li{
+        margin:0;
+        padding:0;
+        list-style:none;
+    }
+    p{font-size:12px;}
+    dt{
+        font-size:14px;
+        font-family:"微软雅黑";
+        font-weight:bold;
+        border-bottom:1px dotted #000;
+        padding:5px 0 5px 5px;
+        margin:5px 0;
+    }
+    dd{
+        padding:5px 0 0 5px;
+    }
+    li{
+        line-height:28px;
+    }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=udT1bctZ9Q1ATDvgQOMv85tF5pWfEEsM  "></script>
+    <!--加载鼠标绘制工具-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <!--加载检索信息窗口-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+    <title>鼠标绘制工具</title>
 </head>
 <body>
-	<div id="allmap"></div>
+    <div id="allmap" style="overflow:hidden;zoom:1;position:relative;"> 
+        <div id="map" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+    </div>
+    <div id="result">
+        <input type="button" value="获取绘制的覆盖物个数" onclick="alert(overlays.length)"/>
+        <input type="button" value="清除所有覆盖物" onclick="clearAll()"/>
+    </div>
+    <script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map('map');
+    var poi = new BMap.Point(116.307852,40.057031);
+    map.centerAndZoom(poi, 16);
+    map.enableScrollWheelZoom();  
+    var overlays = [];
+    var overlaycomplete = function(e){
+        overlays.push(e.overlay);
+    };
+    var styleOptions = {
+        strokeColor:"red",    //边线颜色。
+        fillColor:"red",      //填充颜色。当参数为空时，圆形将没有填充效果。
+        strokeWeight: 3,       //边线的宽度，以像素为单位。
+        strokeOpacity: 0.8,    //边线透明度，取值范围0 - 1。
+        fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+        strokeStyle: 'solid' //边线的样式，solid或dashed。
+    }
+    //实例化鼠标绘制工具
+    var drawingManager = new BMapLib.DrawingManager(map, {
+        isOpen: false, //是否开启绘制模式
+        enableDrawingTool: true, //是否显示工具栏
+        drawingToolOptions: {
+            anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
+            offset: new BMap.Size(5, 5), //偏离值
+        },
+        circleOptions: styleOptions, //圆的样式
+        polylineOptions: styleOptions, //线的样式
+        polygonOptions: styleOptions, //多边形的样式
+        rectangleOptions: styleOptions //矩形的样式
+    });  
+     //添加鼠标绘制工具监听事件，用于获取绘制结果
+    drawingManager.addEventListener('overlaycomplete', overlaycomplete);
+    function clearAll() {
+        for(var i = 0; i < overlays.length; i++){
+            map.removeOverlay(overlays[i]);
+        }
+        overlays.length = 0   
+    }
+</script>
 </body>
 </html>
-<script type="text/javascript">
-	
-    //创建和初始化地图函数：
-function initMap(){
-    createMap();//创建地图
-    setMapEvent();//设置地图事件
-    addMapControl();//向地图添加控件
-    addMapOverlay();//向地图添加覆盖物
-}
-function createMap(){
-    map = new BMap.Map("map");
-    map.centerAndZoom(new BMap.Point(116.308994,39.832592),17);
-}
-function setMapEvent(){
-    map.enableScrollWheelZoom();
-    map.enableKeyboard();
-    map.enableDragging();
-    map.enableDoubleClickZoom()
-}
-function addClickHandler(target,window){
-    target.addEventListener("click",function(){
-        target.openInfoWindow(window);
-    });
-}
-function addMapOverlay(){
-    var markers = [
-        {content:"北京市丰台汽车博览馆东路6号3楼1单元11层",title:"我的位置",imageOffset: {width:-23,height:-21},position:{lat:39.833437,lng:116.309192}}
-    ];
-    for(var index = 0; index < markers.length; index++ ){
-        var point = new BMap.Point(markers[index].position.lng,markers[index].position.lat);
-        var marker = new BMap.Marker(point,{icon:new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png",new BMap.Size(20,25),{
-            imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
-        })});
-        var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
-        var opts = {
-            width: 200,
-            title: markers[index].title,
-            enableMessage: false
-        };
-        var infoWindow = new BMap.InfoWindow(markers[index].content,opts);
-        marker.setLabel(label);
-        addClickHandler(marker,infoWindow);
-        map.addOverlay(marker);
-    };
-}
-//向地图添加控件
-function addMapControl(){
-    var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
-    scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
-    map.addControl(scaleControl);
-    var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:0});
-    map.addControl(navControl);
-    var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
-    map.addControl(overviewControl);
-}
-var map;
-initMap();
-</script>
